@@ -54,7 +54,6 @@ public class MenuScreen extends BaseScreen {
 
     @Override
     public boolean touchDown(int screenX, int screenY, int pointer, int button) {
-//        Вычитаем из высоты экрана screenY для выравнивания позиции по оиси y
         touch.set(screenX, Gdx.graphics.getHeight() - screenY);
         v.set(touch.cpy().sub(vTo)).setLength(SPEAD);
         return super.touchDown(screenX, screenY, pointer, button);
@@ -63,7 +62,7 @@ public class MenuScreen extends BaseScreen {
     @Override
     public boolean touchDragged(int screenX, int screenY, int pointer) {
 
-//        touch.set(screenX, Gdx.graphics.getHeight() - screenY);
+        touch.set(screenX, Gdx.graphics.getHeight() - screenY);
         return super.touchDragged(screenX, screenY, pointer);
     }
 
