@@ -2,11 +2,13 @@ package max_sk.star.game.sprite;
 
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
+import com.badlogic.gdx.math.Vector2;
 
 import max_sk.star.game.base.Sprite;
 import max_sk.star.game.math.Rect;
 
 public class CalibriTextur extends Sprite {
+
     public CalibriTextur(Texture texture) {
         super(new TextureRegion(texture));
     }
@@ -16,8 +18,4 @@ public class CalibriTextur extends Sprite {
         setHeightProportion(0.10f);
         pos.set(worldBounds.pos);
     }
-
-
-
-
 }

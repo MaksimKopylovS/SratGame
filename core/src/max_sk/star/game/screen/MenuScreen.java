@@ -2,6 +2,7 @@ package max_sk.star.game.screen;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.Texture;
+import com.badlogic.gdx.graphics.g2d.TextureAtlas;
 import com.badlogic.gdx.math.Vector;
 import com.badlogic.gdx.math.Vector2;
 
@@ -10,6 +11,7 @@ import max_sk.star.game.base.BaseScreen;
 import max_sk.star.game.math.Rect;
 import max_sk.star.game.sprite.Background;
 import max_sk.star.game.sprite.CalibriTextur;
+import max_sk.star.game.sprite.Star;
 
 
 public class MenuScreen extends BaseScreen {
@@ -18,6 +20,7 @@ public class MenuScreen extends BaseScreen {
 
     Texture seaBackGroundTexture;
     Texture gullTexture;
+    private TextureAtlas atlas;
 
     private Rect touch;
     private Rect v;
@@ -27,9 +30,13 @@ public class MenuScreen extends BaseScreen {
     private CalibriTextur calibriTextur;
     private Vector2 vectorV;
 
+    private Star[] stars;
+    
     @Override
     public void show() {
         super.show();
+        stars = new Star[1];
+        atlas = new TextureAtlas("textures/mainAtlas.tpack");
         seaBackGroundTexture= new Texture("sea.jpg");
         background = new Background(seaBackGroundTexture);
         gullTexture = new Texture("gull.jpg");
@@ -39,6 +46,9 @@ public class MenuScreen extends BaseScreen {
         v = new Rect(0,0, 0.10f, 0.10f);
         vectorV = new Vector2();
 
+        for(int i =0; i < stars.length; i++){
+            stars[i] = new Star(atlas);
+        }
     }
 
     @Override
@@ -47,6 +57,9 @@ public class MenuScreen extends BaseScreen {
         background.resize(worldBounds);
         calibriTextur.resize(worldBounds);
 
+        for(Star star : stars){
+            star.resize(worldBounds);
+        }
     }
 
     @Override
@@ -57,7 +70,8 @@ public class MenuScreen extends BaseScreen {
         calibriTextur.draw(batch);
         batch.end();
         calibriTextur.set(vTo);
-
+        update(delta);
+//        draw();
         toFollow();
     }
 
@@ -66,6 +80,7 @@ public class MenuScreen extends BaseScreen {
         super.dispose();
         seaBackGroundTexture.dispose();
         gullTexture.dispose();
+        atlas.dispose();
     }
 
     @Override
@@ -81,6 +96,23 @@ public class MenuScreen extends BaseScreen {
     @Override
     public boolean touchDragged(int screenX, int screenY, int pointer) {
         return super.touchDragged(screenX, screenY, pointer);
+    }
+
+    private void update(float delta){
+        for(Star star : stars){
+            star.update(delta);
+        }
+    }
+
+    private void draw() {
+        batch.begin();
+        background.draw(batch);
+        for (Star star : stars) {
+            star.draw(batch);
+        }
+//        exitButton.draw(batch);
+//        playButton.draw(batch);
+        batch.end();
     }
 
 
