@@ -16,6 +16,6 @@ public class StarGame extends Game {
 	@Override
 	public void create () {
 //		Вданный метод передаётся любой клас наследник от Screan
-		setScreen(new MenuScreen());
+		setScreen(new MenuScreen(this));
 	}
 }

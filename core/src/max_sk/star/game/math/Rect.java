@@ -25,11 +25,6 @@ public class Rect {
         this.halfHeight = halfHeight;
     }
 
-
-    public Vector2 getPos() {
-        return pos;
-    }
-
     public float getLeft() {
         return pos.x - halfWidth;
     }

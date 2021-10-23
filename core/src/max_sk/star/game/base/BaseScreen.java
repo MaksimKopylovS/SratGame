@@ -9,12 +9,11 @@ import com.badlogic.gdx.math.Matrix4;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.utils.ScreenUtils;
 
-
 import max_sk.star.game.math.MatrixUtils;
 import max_sk.star.game.math.Rect;
 
-public class BaseScreen implements Screen, InputProcessor {
 
+public class BaseScreen implements Screen, InputProcessor {
 
     private Rect screenBounds;
     private Rect worldBounds;
@@ -29,8 +28,6 @@ public class BaseScreen implements Screen, InputProcessor {
 
     @Override
     public void show() {
-
-        batch = new SpriteBatch();
         System.out.println("show");
         screenBounds = new Rect();
         worldBounds = new Rect();
@@ -40,17 +37,13 @@ public class BaseScreen implements Screen, InputProcessor {
         batch = new SpriteBatch();
         batch.getProjectionMatrix().idt();
         Gdx.input.setInputProcessor(this);
-
-// Сообщает Приложению что приложение использует инпут процессор(Слежение за комбинациями клавищь)
-        Gdx.input.setInputProcessor(this);
     }
 
-//    Срабатывает 60 раз в секунду delta момент времени между срабатыванием меттода
     @Override
     public void render(float delta) {
-        ScreenUtils.clear(1, 0, 0, 1);
+        ScreenUtils.clear(0.5f, 0.23f, 0.74f, 1);
     }
-//  срабаытвает после метода show, каждый раз когда меняются размеры экрана
+
     @Override
     public void resize(int width, int height) {
         System.out.println("resize width = " + width + " height = " + height);
@@ -72,67 +65,62 @@ public class BaseScreen implements Screen, InputProcessor {
                 + worldBounds.getWidth() + " worldBounds.height = " + worldBounds.getHeight());
     }
 
-//  Срабатывает когда мы свернули экран
     @Override
     public void pause() {
         System.out.println("pause");
     }
-// Срабатывает когда развернули экран
+
     @Override
     public void resume() {
         System.out.println("resume");
     }
-//Срабатывает при переключение на другой экран или при закрытиит
+
     @Override
     public void hide() {
         System.out.println("hide");
         dispose();
     }
 
-//    нужно вызывать в ручную луще в метода hide
     @Override
     public void dispose() {
         System.out.println("dispose");
         batch.dispose();
     }
-// Метод получение нажатия любой клавиши
+
     @Override
     public boolean keyDown(int keycode) {
-        System.out.println("keyDown: keykode - " + keycode);
+        System.out.println("keyDown keycode = " + keycode);
         return false;
     }
 
-// Срабытывате при отпиускании клавищы
     @Override
     public boolean keyUp(int keycode) {
-        System.out.println("keyUp: keykode - " + keycode);
+        System.out.println("keyUp keycode = " + keycode);
         return false;
     }
-// Сам факт нажатия клавищы, срабыватывает при зажатиии клавищы
+
     @Override
     public boolean keyTyped(char character) {
-        System.out.println("keyTyped: character - " + character);
+        System.out.println("keyTyped character = " + character);
         return false;
     }
-// Срабытывает когда кликаем мышкой по экрану или тыкаем пальцем по экрану телефона
-//    Отображает координаты нажатия мышы,номер кноки мыши номер пальца координаты
+
     @Override
     public boolean touchDown(int screenX, int screenY, int pointer, int button) {
-        System.out.println("touchDowntouchDown: screenX - " + screenX + " screenY - " + screenY + " pointer - " + pointer + " button - " + button);
+        System.out.println("touchDown screenX = " + screenX + " screenY = " + screenY);
         touch.set(screenX, screenBounds.getHeight() - screenY).mul(screenToWorld);
         touchDown(touch, pointer, button);
         return false;
     }
 
     public boolean touchDown(Vector2 touch, int pointer, int button) {
-        System.out.println("touchDown@@@@@ touch.X = " + touch.x + " touch.Y = " + touch.y);
+        System.out.println("touchDown touch.X = " + touch.x + " touch.Y = " + touch.y);
         return false;
     }
 
-// срабатывает когда мы уберавем палец с экрана
     @Override
     public boolean touchUp(int screenX, int screenY, int pointer, int button) {
-        System.out.println("touchUp: screenX - " + screenX + " screenY - " + screenY + " pointer - " + pointer + " button - " + button);
+        System.out.println("touchUp screenX = " + screenX + " screenY = " + screenY);
         touch.set(screenX, screenBounds.getHeight() - screenY).mul(screenToWorld);
         touchUp(touch, pointer, button);
         return false;
@@ -143,12 +131,9 @@ public class BaseScreen implements Screen, InputProcessor {
         return false;
     }
 
-
-//Срабаыватект когда мы зажымаем обект о тоскаем его по экрану
-//отображает координаты и номер пальца или мыши
     @Override
     public boolean touchDragged(int screenX, int screenY, int pointer) {
-        System.out.println("touchUp: screenX - " + screenX + " screenY - " + screenY + " pointer - " + pointer);
+        System.out.println("touchDragged screenX = " + screenX + " screenY = " + screenY);
         touch.set(screenX, screenBounds.getHeight() - screenY).mul(screenToWorld);
         touchDragged(touch, pointer);
         return false;
@@ -159,15 +144,14 @@ public class BaseScreen implements Screen, InputProcessor {
         return false;
     }
 
-//    Логирует движениме мыши
     @Override
     public boolean mouseMoved(int screenX, int screenY) {
         return false;
     }
-//Скролинг колёсика мыши
+
     @Override
     public boolean scrolled(float amountX, float amountY) {
-        System.out.println("scrolled - amountX "+  amountX + " amountY - " + amountY );
+        System.out.println("scrolled amountX = " + amountX + " amountY = " + amountY);
         return false;
     }
 }
