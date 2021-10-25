@@ -3,7 +3,7 @@ package max_sk.star.game.base;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.math.Vector2;
 
-public abstract class BaseButton extends Sprite {
+public abstract class BaseButton  extends Sprite {
 
     private boolean pressed;
     private int pointer;
