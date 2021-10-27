@@ -24,7 +24,6 @@ public class BaseScreen implements Screen, InputProcessor {
     private Matrix3 screenToWorld;
 
     private final Vector2 touch = new Vector2();
-    private Music music;
 
     protected SpriteBatch batch;
 
@@ -39,8 +38,6 @@ public class BaseScreen implements Screen, InputProcessor {
         batch = new SpriteBatch();
         batch.getProjectionMatrix().idt();
         Gdx.input.setInputProcessor(this);
-        music = Gdx.audio.newMusic(Gdx.files.internal("sounds/music.mp3"));
-        music.play();
     }
 
     @Override
@@ -89,7 +86,7 @@ public class BaseScreen implements Screen, InputProcessor {
     public void dispose() {
         System.out.println("dispose");
         batch.dispose();
-        music.dispose();
+
     }
 
     @Override
