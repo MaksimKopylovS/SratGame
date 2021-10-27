@@ -20,6 +20,8 @@ public class MainShip extends Sprite {
     private static final float BOTTOM_MARGIN = 0.05f;
     private static final int INVALID_POINTER = -1;
 
+    private Sound sound;
+
     private final BulletPool bulletPool;
     private final TextureRegion bulletRegion;
     private final Vector2 bulletV;
@@ -42,11 +44,25 @@ public class MainShip extends Sprite {
         super(atlas.findRegion("main_ship"), 1, 2, 2);
         this.bulletPool = bulletPool;
         this.bulletRegion = atlas.findRegion("bulletMainShip");
+        this.sound = Gdx.audio.newSound(Gdx.files.internal("sounds/laser.wav"));
         this.bulletV = new Vector2(0, 0.5f);
         this.bulletHeight = 0.01f;
         this.damage = 1;
         this.v = new Vector2();
         this.v0 = new Vector2(0.5f, 0);
+        new Thread(new Runnable() {
+            @Override
+            public void run() {
+                while (true){
+                    shoot();
+                    try {
+                        Thread.sleep(400);
+                    } catch (InterruptedException e) {
+                        e.printStackTrace();
+                    }
+                }
+            }
+        }).start();
     }
 
     @Override
@@ -178,5 +194,7 @@ public class MainShip extends Sprite {
     private void shoot() {
         Bullet bullet = bulletPool.obtain();
         bullet.set(this, bulletRegion, this.pos, bulletV, worldBounds, bulletHeight, damage);
+        sound.play(1.0f);
+
     }
 }
