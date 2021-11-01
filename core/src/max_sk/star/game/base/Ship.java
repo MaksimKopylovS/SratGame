@@ -43,7 +43,6 @@ public class Ship extends Sprite {
             shoot();
         }
         bulletPos.set(pos);
-
     }
 
     protected void shoot(){

@@ -155,7 +155,6 @@ public class MainShip extends Ship {
                 }
                 break;
         }
-
         return false;
     }
 

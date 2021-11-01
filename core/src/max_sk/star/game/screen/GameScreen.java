@@ -37,7 +37,6 @@ public class GameScreen extends BaseScreen {
 
     private EnemyEmitter enemyEmitter;
 
-
     @Override
     public void show() {
         super.show();
@@ -55,10 +54,8 @@ public class GameScreen extends BaseScreen {
         }
         bulletPool = new BulletPool();
         enemyPool = new EnemyPool (bulletPool, worldBounds, bulletSound);
-
         mainShip = new MainShip(atlas, bulletPool, laserSound);
         enemyEmitter = new EnemyEmitter(enemyPool, worldBounds, atlas);
-
     }
 
     @Override
@@ -121,7 +118,6 @@ public class GameScreen extends BaseScreen {
         enemyPool.updateActiveObjects(delta);
         enemyEmitter.generate(delta);
         isTrash();
-//        enemyEmitter.setEnemyShip(new Vector2(0, -0.2f));
     }
 
     private void draw() {
@@ -149,6 +145,4 @@ public class GameScreen extends BaseScreen {
             }
         }
     }
-
-
 }

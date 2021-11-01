@@ -31,7 +31,6 @@ public class EnemyEmitter {
     private static final float ENEMY_BIG_RELOAD_INTERVAL = 3f;
     private static final int ENEMY_BIG_HP = 10;
 
-
     private final EnemyPool enemyPool;
     private final Rect worldBounds;
     private float generateTimer;
@@ -109,15 +108,10 @@ public class EnemyEmitter {
                     worldBounds.getRight() - enemy.getHalfWidth()
             );
            enemy.resize(worldBounds);
-
         }
     }
 
     public EnemyPool getEnemyPool(){
         return enemyPool;
     }
-
-
-
-
 }
