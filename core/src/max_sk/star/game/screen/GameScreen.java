@@ -12,6 +12,7 @@ import max_sk.star.game.math.Rect;
 import max_sk.star.game.pool.BulletPool;
 import max_sk.star.game.pool.EnemyPool;
 import max_sk.star.game.sprite.Background;
+import max_sk.star.game.sprite.EnemyShip;
 import max_sk.star.game.sprite.MainShip;
 import max_sk.star.game.sprite.Star;
 import max_sk.star.game.util.EnemyEmitter;
@@ -36,6 +37,7 @@ public class GameScreen extends BaseScreen {
 
     private EnemyEmitter enemyEmitter;
 
+
     @Override
     public void show() {
         super.show();
@@ -56,6 +58,7 @@ public class GameScreen extends BaseScreen {
 
         mainShip = new MainShip(atlas, bulletPool, laserSound);
         enemyEmitter = new EnemyEmitter(enemyPool, worldBounds, atlas);
+
     }
 
     @Override
@@ -117,6 +120,8 @@ public class GameScreen extends BaseScreen {
         bulletPool.updateActiveObjects(delta);
         enemyPool.updateActiveObjects(delta);
         enemyEmitter.generate(delta);
+        isTrash();
+//        enemyEmitter.setEnemyShip(new Vector2(0, -0.2f));
     }
 
     private void draw() {
@@ -134,6 +139,15 @@ public class GameScreen extends BaseScreen {
     private void freeAllDestroyed() {
         bulletPool.freeAllDestroyed();
         enemyPool.freeAllDestroyed();
+    }
+
+    private void isTrash(){
+        for(EnemyShip enemyShip : enemyPool.getActiveObjects()){
+            if (!mainShip.isOutside(enemyShip)){
+                enemyPool.getActiveObjects().remove(enemyShip);
+                break;
+            }
+        }
     }
 
 

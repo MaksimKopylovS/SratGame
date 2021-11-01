@@ -10,6 +10,8 @@ import max_sk.star.game.pool.BulletPool;
 
 public class EnemyShip extends Ship {
 
+    private static final float START_SHIP = 0.5f;
+    private int count = 0;
 
     public EnemyShip(BulletPool bulletPool, Rect worldBounds, Sound bulletSound){
         this.bulletPool = bulletPool;
@@ -28,6 +30,13 @@ public class EnemyShip extends Ship {
         if (getBottom() < worldBounds.getBottom()) {
             destroy();
         }
+  }
+
+    @Override
+    public void resize(Rect worldBounds) {
+        super.resize(worldBounds);
+        this.worldBounds = worldBounds;
+        setTop(START_SHIP);
     }
 
     public void set(
@@ -50,5 +59,30 @@ public class EnemyShip extends Ship {
         this.reloadInterval = reloadInterval;
         setHeightProportion(height);
 
+    }
+
+    public void setV(Vector2 v){
+        this.v.set(v);
+    }
+
+    public void goEnemyShip(final Vector2 v){
+
+        new Thread(new Runnable() {
+            @Override
+            public void run() {
+                while (true){
+                    try {
+                        Thread.sleep(2000);
+                    } catch (InterruptedException e) {
+                        e.printStackTrace();
+                    }
+                    count++;
+                    if(count == 5){
+                        count = 0;
+                        setV(v);
+                    }
+                }
+            }
+        }).start();
     }
 }

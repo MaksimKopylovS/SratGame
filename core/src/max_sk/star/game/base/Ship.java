@@ -27,7 +27,6 @@ public class Ship extends Sprite {
     protected Rect worldBounds;
 
     public Ship(){
-
     }
 
     public Ship(TextureRegion region, int rows, int cols, int frames){
@@ -39,13 +38,15 @@ public class Ship extends Sprite {
         pos.mulAdd(v, delta);
         reloadTime +=delta;
         if (reloadTime >= reloadInterval){
+            System.out.println(reloadTime + "   " + reloadInterval);
             reloadTime = 0f;
             shoot();
         }
         bulletPos.set(pos);
+
     }
 
-    private void shoot(){
+    protected void shoot(){
         Bullet bullet = bulletPool.obtain();
         bullet.set(this, bulletRegion, bulletPos, bulletV, worldBounds, bulletHeight, damage);
         bulletSound.play();
