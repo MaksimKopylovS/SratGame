@@ -1,7 +1,10 @@
 package max_sk.star.game.base;
 
+import com.badlogic.gdx.graphics.g2d.TextureAtlas;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.math.Vector2;
+
+import max_sk.star.game.sprite.PlayButton;
 
 public abstract class BaseButton extends Sprite {
 

@@ -17,7 +17,7 @@ public class MenuScreen extends BaseScreen {
 
     private static final int STAR_COUNT = 256;
 
-    private final Game game;
+    private static Game game;
 
     private TextureAtlas atlas;
     private Texture bg;
@@ -102,4 +102,7 @@ public class MenuScreen extends BaseScreen {
         batch.end();
     }
 
+    public static Game getGame(){
+        return game;
+    }
 }

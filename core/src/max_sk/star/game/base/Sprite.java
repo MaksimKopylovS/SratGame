@@ -30,6 +30,9 @@ public class Sprite extends Rect {
     }
 
     public Sprite (TextureRegion region, int rows, int cols, int frames) {
+        if (region == null) {
+            throw new IllegalArgumentException("region must be not null");
+        }
         this.regions = Regions.split(region, rows, cols, frames);
     }
 
@@ -69,7 +72,6 @@ public class Sprite extends Rect {
     public boolean touchDragged(Vector2 touch, int pointer) {
         return false;
     }
-
 
     public float getAngle() {
         return angle;

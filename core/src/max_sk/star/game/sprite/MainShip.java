@@ -166,6 +166,8 @@ public class MainShip extends Ship {
         v.setZero();
     }
 
-
+    public int getHp(){
+        return hp;
+    }
 
 }
