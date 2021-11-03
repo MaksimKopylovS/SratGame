@@ -14,6 +14,8 @@ import max_sk.star.game.base.Ship;
 import max_sk.star.game.base.Sprite;
 import max_sk.star.game.math.Rect;
 import max_sk.star.game.pool.BulletPool;
+import max_sk.star.game.pool.ExplosionPool;
+
 
 public class MainShip extends Ship {
 
@@ -29,16 +31,17 @@ public class MainShip extends Ship {
     private int leftPointer = INVALID_POINTER;
     private int rightPointer = INVALID_POINTER;
 
-    public MainShip(TextureAtlas atlas, BulletPool bulletPool, Sound bulletSound) {
+    public MainShip(TextureAtlas atlas, BulletPool bulletPool, ExplosionPool explosionPool, Sound bulletSound) {
         super(atlas.findRegion("main_ship"), 1, 2, 2);
         this.bulletPool = bulletPool;
+        this.explosionPool = explosionPool;
         this.bulletSound = bulletSound;
         this.bulletRegion = atlas.findRegion("bulletMainShip");
         this.bulletV = new Vector2(0, 0.5f);
         this.bulletPos = new Vector2();
         this.bulletHeight = 0.01f;
         this.damage = 1;
-        this.hp = 100;
+        this.hp = 1;
         this.v = new Vector2();
         this.v0 = new Vector2(0.5f, 0);
         this.reloadInterval = RELOAD_INTERVAL;
@@ -54,22 +57,15 @@ public class MainShip extends Ship {
 
     @Override
     public void update(float delta) {
-//        pos.mulAdd(v, delta);
-//        if (getRight() > worldBounds.getRight()) {
-//            setRight(worldBounds.getRight());
-//            stop();
-//        }
-//        if (getLeft() < worldBounds.getLeft()) {
-//            setLeft(worldBounds.getLeft());
-//            stop();
-//        }
         super.update(delta);
         bulletPos.set(this.pos.x, getTop());
-        if (getLeft() > worldBounds.getRight()) {
-            setRight(worldBounds.getLeft());
+        if (getRight() > worldBounds.getRight()) {
+            setRight(worldBounds.getRight());
+            stop();
         }
-        if (getRight() < worldBounds.getLeft()) {
-            setLeft(worldBounds.getRight());
+        if (getLeft() < worldBounds.getLeft()) {
+            setLeft(worldBounds.getLeft());
+            stop();
         }
     }
 
@@ -112,23 +108,17 @@ public class MainShip extends Ship {
     }
 
     public boolean keyDown(int keycode) {
-
         switch (keycode) {
             case Input.Keys.A:
-
             case Input.Keys.LEFT:
                 pressedLeft = true;
                 moveLeft();
-                System.out.println("keyDown " + keycode);
                 break;
             case Input.Keys.D:
             case Input.Keys.RIGHT:
                 pressedRight = true;
                 moveRight();
                 break;
-//            case Input.Keys.UP:
-//                shoot();
-//                break;
         }
         return false;
     }
@@ -140,7 +130,6 @@ public class MainShip extends Ship {
                 pressedLeft = false;
                 if (pressedRight) {
                     moveRight();
-                    System.out.println("keyUp " + keycode);
                 } else {
                     stop();
                 }
@@ -155,8 +144,14 @@ public class MainShip extends Ship {
                 }
                 break;
         }
-
         return false;
+    }
+
+    public boolean isBulletCollision(Bullet bullet) {
+        return !(bullet.getRight() < getLeft()
+                || bullet.getLeft() > getRight()
+                || bullet.getBottom() > pos.y
+                || bullet.getTop() < getBottom());
     }
 
     private void moveRight() {
@@ -171,8 +166,6 @@ public class MainShip extends Ship {
         v.setZero();
     }
 
-//    private void shoot() {
-//        Bullet bullet = bulletPool.obtain();
-//        bullet.set(this, bulletRegion, this.pos, bulletV, worldBounds, bulletHeight, damage);
-//    }
+
+
 }

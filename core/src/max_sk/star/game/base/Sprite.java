@@ -15,9 +15,9 @@ public class Sprite extends Rect {
     protected float scale = 1f;
     protected TextureRegion[] regions;
     protected int frame;
-    private boolean destryed;
+    private boolean destroyed;
 
-    public Sprite(){
+    public Sprite() {
 
     }
 
@@ -38,8 +38,6 @@ public class Sprite extends Rect {
         float aspect = regions[frame].getRegionWidth() / (float) regions[frame].getRegionHeight();
         setWidth(height * aspect);
     }
-
-
 
     public void resize(Rect worldBounds) {
 
@@ -89,15 +87,15 @@ public class Sprite extends Rect {
         this.scale = scale;
     }
 
-    public boolean isDestroyed(){
-        return destryed;
+    public void destroy() {
+        destroyed = true;
     }
 
-    public void flushDestroy(){
-        destryed = false;
+    public void flushDestroy() {
+        destroyed = false;
     }
 
-    public void destroy(){
-        destryed = true;
+    public boolean isDestroyed() {
+        return destroyed;
     }
 }
