@@ -31,6 +31,8 @@ public class MainShip extends Ship {
     private int leftPointer = INVALID_POINTER;
     private int rightPointer = INVALID_POINTER;
 
+    private static final int HP = 1;
+
     public MainShip(TextureAtlas atlas, BulletPool bulletPool, ExplosionPool explosionPool, Sound bulletSound) {
         super(atlas.findRegion("main_ship"), 1, 2, 2);
         this.bulletPool = bulletPool;
@@ -41,7 +43,7 @@ public class MainShip extends Ship {
         this.bulletPos = new Vector2();
         this.bulletHeight = 0.01f;
         this.damage = 1;
-        this.hp = 1;
+        this.hp = HP;
         this.v = new Vector2();
         this.v0 = new Vector2(0.5f, 0);
         this.reloadInterval = RELOAD_INTERVAL;
@@ -67,6 +69,17 @@ public class MainShip extends Ship {
             setLeft(worldBounds.getLeft());
             stop();
         }
+    }
+
+    public void startNewGame(){
+        this.hp = HP;
+        leftPointer = INVALID_POINTER;
+        rightPointer = INVALID_POINTER;
+        pressedLeft = false;
+        pressedRight = false;
+        stop();
+        pos.x = worldBounds.pos.x;
+        flushDestroy();
     }
 
     @Override
