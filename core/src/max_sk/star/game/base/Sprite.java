@@ -8,7 +8,6 @@ import com.badlogic.gdx.math.Vector2;
 import max_sk.star.game.math.Rect;
 import max_sk.star.game.util.Regions;
 
-
 public class Sprite extends Rect {
 
     protected float angle;
