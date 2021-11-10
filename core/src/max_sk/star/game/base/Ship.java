@@ -22,6 +22,7 @@ public class Ship extends Sprite {
     protected Vector2 bulletPos;
     protected float bulletHeight;
     protected int damage;
+
     protected int hp;
 
     protected Vector2 v;
@@ -84,4 +85,9 @@ public class Ship extends Sprite {
     private void boom() {
         Explosion explosion = explosionPool.obtain();
         explosion.set(this.pos, getHeight());
-    }}
+    }
+
+    public int getHp() {
+        return hp;
+    }
+}
